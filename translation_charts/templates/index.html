@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}" />
+  </head>
+
+  <body>
+
+    <div class="container">
+      {% if user.is_authenticated %}
+        <p class="user-greeting">Welcome {{user.username}} to the page! Click <a href="{% url 'logout' %}">HERE</a> if you want to logout!</p>
+      {% else %}
+        <p class="user-greeting">You are not logged in! Go to this <a href="{% url 'login' %}">login</a></p>
+      {% endif %}
+
+      <hr>
+      <p id="translate-link">Click on <a href="{% url 'translate' %}">HERE</a> link to translate sentences!</p>
+
+      {% if data_one_month %}
+        <!-- displaying the chart -->
+        <div id="chart-section">
+          <p class="chart-title">Translations done today:</p class="chart-title">
+          <canvas id="myChart_one_day"></canvas>
+    
+          <p class="chart-title">Translations done from last week:</p class="chart-title">
+          <canvas id="myChart_one_week"></canvas>
+    
+          <p class="chart-title">Translations done from last month:</p class="chart-title">
+          <canvas id="myChart_one_month"></canvas>
+        </div>
+      {% endif %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('myChart_one_day');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: {{ labels_one_day|safe }},
+          datasets: [{
+            label: 'translations done that day',
+            data: {{ data_one_day|safe }},
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+    <script>
+      const ctx2 = document.getElementById('myChart_one_week');
+
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: {{ labels_one_week|safe }},
+          datasets: [{
+            label: 'translations done that day',
+            data: {{ data_one_week|safe }},
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+    <script>
+      const ctx3 = document.getElementById('myChart_one_month');
+
+      new Chart(ctx3, {
+        type: 'bar',
+        data: {
+          labels: {{ labels_one_month|safe }},
+          datasets: [{
+            label: 'translations done that day',
+            data: {{ data_one_month|safe }},
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

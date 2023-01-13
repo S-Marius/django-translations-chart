@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}" />
+</head>
+
+<body>
+
+    <div class="container">
+        <h3>Sign UP below to create an account!</h3>
+
+        {% if messages %}
+            {% for message in messages %}
+                    {{ message }}
+            {% endfor %}
+        {% endif %}
+
+        <form form method="POST">
+            {% csrf_token %}
+
+            <h3>Username:</h3>
+            <input name="username" type="text">
+
+            <h3>Email:</h3>
+            <input name="email" type="email">
+
+            <h3>Password:</h3>
+            <input name="password" type="password">
+
+            <h3>Repeat Password:</h3>
+            <input name="repeatedPassword" type="password">
+            <br>
+
+            <button type="input">Register!</button>
+        </form>
+
+        <h3>Go to INDEX page <a href="{% url 'index' %}">HERE</a></p>
+    </div>
+</body>
+
+</html>

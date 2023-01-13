@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/styles.css' %}">
+</head>
+
+<body>
+
+    <div class="container">
+        {% if user.is_authenticated %}
+            <h1>Translate page!</h1>
+
+            <h3>
+                <a href="{% url 'index' %}">Go back to main page!</a>
+            </h3>
+        
+            <form id="translate-form" form method="POST">
+                {% csrf_token %}
+        
+                <h3>Enter the sentence you want to translate in various languages:</h3>
+                <input placeholder="insert a sentence or text..." name="sentence" type="text">
+                <br>
+        
+                <button type="input">Translate!</button>
+            </form>
+        
+            {% for sentence in translated_sentences %}
+                <div class='sentence'>{{ sentence }}</div>
+                <br>
+            {% endfor %}
+        {% else %}
+            <p class="user-greeting">You can't use this page if you are not logged in! Go to <a href="{% url 'login' %}">this</a> to login!</p>
+        {% endif %}
+    </div>
+</body>
+
+</html>

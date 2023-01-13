@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    height: 100%;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat:no-repeat;
+    background: -webkit-linear-gradient( to left top, rgb(70, 70, 255), red);
+    background: -moz-linear-gradient( to left top, rgb(70, 70, 255), red);
+    background: -ms-linear-gradient( to left top, rgb(70, 70, 255), red);
+    background: -o-linear-gradient( to left top, rgb(70, 70, 255), red);
+    background: linear-gradient( to left top, rgb(70, 70, 255), red);
+    background-attachment: fixed;
+    font-family: 'Space Mono', monospace;
+}
+
+/* INDEX.HTML PAGE */
+
+#error {
+    color: rgb(0, 0, 0);
+    background-color: rgb(255, 0, 0);
+}
+
+.container {
+    width: 80%;
+    margin: auto;
+    color: whitesmoke;
+    text-align: center;
+}
+
+.container a {
+    text-decoration: none;
+    color: aqua;
+}
+
+.user-greeting {
+    font-size: 1.5rem;
+    word-spacing: -0.2rem;
+    text-align: center;
+    margin: 1rem 0rem 1rem 0rem;
+    font-weight: bold;
+}
+
+#translate-link {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.chart-title {
+    font-size: 1.4rem;
+    color: rgb(39, 46, 255);
+    margin: 1rem 0rem 1rem 0rem;
+    font-weight: 500;
+    font-weight: bold;
+}
+
+#chart-section {
+    background-color: aliceblue;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    box-shadow: rgba(50, 50, 93, 0.366) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.435) 0px 18px 36px -18px inset;
+    margin: 1rem 0 2rem 0rem;
+}
+
+canvas {
+    width: 500;
+    height: 300;
+}
+
+/* LOGIN.HTML, REGISTER.HTML PAGE  */
+
+form {
+    padding: 1rem;
+    margin: 1rem 0rem 1rem 0rem;
+}
+
+form input {
+    margin: 0.5rem 0rem 0.5rem 0rem;
+}
+
+form button {
+    margin: 1rem 0rem 0rem 0rem;
+    padding: 0.5rem 1rem;
+    border: none;
+}
+
+canvas {
+    color: white;
+}
+
+/* TRANSLATE.HTML PAGE  */
+
+#translate-form h3 {
+    font-size: 1.5rem;
+}
+
+#translate-form input {
+    width: 100%;
+    padding: 0.5rem;
+}
+
+@media only screen and (min-width: 600px) {
+    * {
+        font-size: 1.4rem;
+    }
+
+    .container {
+        width: 50%;
+    }
+}
