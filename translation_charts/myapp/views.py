@@ -138,8 +138,6 @@ def register(request):
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
 
-                messages.success(request, "You registered successfully")
-
                 return redirect('login')
         else:
             messages.warning(request, 'Passwords do not match!')
