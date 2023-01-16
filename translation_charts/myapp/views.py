@@ -50,13 +50,13 @@ def translate(request):
     if request.method == 'POST':
         date = datetime.date.today()
 
-        translation_object_queryset = Profile.objects.filter(user=request.user)
+        translation_object_queryset = Profile.objects.filter(user=request.user, date=date)
 
         if translation_object_queryset.exists():
             translation_object = Profile.objects.get(user=request.user, date=date)
             sentence = request.POST.get('sentence', '')
 
-            language_list = ["ru", "fr", "no", "es", "ro", "en"]
+            language_list = ["ru", "fr", "es", "ro", "en", "de", "pt", 'no', 'ja']
 
             translator = googletrans.Translator()
             translate = ""
@@ -79,7 +79,8 @@ def translate(request):
         else:
             translation_object = Profile.objects.create(user=request.user, date=date)
             sentence = request.POST.get('sentence', '')
-            language_list = ["ru", "fr", "no", "es", "ro", "en"]
+            
+            language_list = ["ru", "fr", "es", "ro", "en", "de", "pt", 'no', 'ja']
 
             translator = googletrans.Translator()
             translate = ""
@@ -137,6 +138,8 @@ def register(request):
             else:
                 user = User.objects.create_user(username=username, email=email, password=password)
                 user.save()
+
+                messages.success(request, "You registered successfully")
 
                 return redirect('login')
         else:
