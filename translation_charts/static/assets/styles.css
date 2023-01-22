@@ -75,6 +75,11 @@ canvas {
     height: 300;
 }
 
+#excel-botton {
+    margin: 1rem 0rem 1rem 0rem;
+    padding: 1rem;
+}
+
 /* LOGIN.HTML, REGISTER.HTML PAGE  */
 
 form {
