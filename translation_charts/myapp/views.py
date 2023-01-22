@@ -4,13 +4,17 @@ from django.contrib import messages
 import datetime
 import googletrans
 from googletrans import *
+import time
+import pandas as pd
+from django.shortcuts import render, HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
 
 
 from .models import Profile
 
 # Create your views here.
 
-PREFERRED_LANGUAGE = ""
 
 def index(request):
 
@@ -56,37 +60,33 @@ def translate(request):
             translation_object = Profile.objects.get(user=request.user, date=date)
             sentence = request.POST.get('sentence', '')
 
-            language_list = ["ru", "fr", "es", "ro", "en", "de", "pt", 'no', 'ja']
+            language_list = ["fr", "es", "en", "pt", "no"]
 
             translator = googletrans.Translator()
             translate = ""
-
-            if PREFERRED_LANGUAGE in language_list:
-                language_list.remove(PREFERRED_LANGUAGE)
             translated_sentences = []
 
 
             for i in language_list:
                 translate = translator.translate(sentence, dest=i).text
                 translated_sentences.append(translate)
+                time.sleep(0.2)
 
             translation_object.translations_done = translation_object.translations_done + len(language_list)
             translation_object.user = request.user
             translation_object.save()
             
         
-            return render(request, 'translate.html', {'translated_sentences': translated_sentences, "PREFERRED_LANGUAGE": PREFERRED_LANGUAGE})
+            return render(request, 'translate.html', {'translated_sentences': translated_sentences})
         else:
             translation_object = Profile.objects.create(user=request.user, date=date)
             sentence = request.POST.get('sentence', '')
             
-            language_list = ["ru", "fr", "es", "ro", "en", "de", "pt", 'no', 'ja']
+            language_list = ["fr", "es", "en", "pt", "no"]
 
             translator = googletrans.Translator()
             translate = ""
 
-            if PREFERRED_LANGUAGE in language_list:
-                language_list.remove(PREFERRED_LANGUAGE)
             translated_sentences = []
 
 
@@ -95,15 +95,49 @@ def translate(request):
             for i in language_list:
                 translate = translator.translate(sentence, dest=i).text
                 translated_sentences.append(translate)
+                time.sleep(0.2)
 
             translation_object.translations_done = translation_object.translations_done + len(language_list)
             translation_object.user = request.user
             translation_object.save()
 
         
-            return render(request, 'translate.html', {'translated_sentences': translated_sentences, "PREFERRED_LANGUAGE": PREFERRED_LANGUAGE})
+            return render(request, 'translate.html', {'translated_sentences': translated_sentences})
     else:
         return render(request, 'translate.html')
+
+def export_to_excel(request):
+    queryset = Profile.objects.filter(user=request.user)
+    
+    df = pd.DataFrame.from_records(queryset.values('translations_done', 'date'))
+    
+
+    response = HttpResponse(content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    filename = (f"{request.user}")
+    response['Content-Disposition'] = f'attachment; filename="{filename}_data.xls"'
+    df.to_excel(response, index=False)
+    
+    return response
+
+def export_to_pdf(request):
+    queryset = Profile.objects.filter(user=request.user)
+    template_path = 'pdf-output.html'
+
+    context = {'data': queryset}
+
+    filename = (f"{request.user}")
+
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{filename}_data.pdf"'
+    
+    template = get_template(template_path)
+    html = template.render(context)
+    
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('A error occured!')
+
+    return response
 
 def login(request):
     if request.method == 'POST':
