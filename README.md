@@ -4,7 +4,7 @@ To test it out:
 2. make sure you have all the necessary libraries installed
 3. run these commands in this order: python manage.py makemigrations; python manage.py migrate; python manage.py migrate --run-syncdb; python manage.py runserver;
 
-After setting everything up, simply go to /translate.html/ link, register/login, translate some sentences and enjoy the graphs on the index page afterwards.
+After setting everything up, simply go to /translate.html/ link, register/login, translate some sentences and enjoy the graphs on the index page afterwards. You can also download the Excel and PDF file showing the number of translation you did everyday!
 
 Chart Photo & Translate Sentence Page:
 <br>
