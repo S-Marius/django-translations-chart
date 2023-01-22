@@ -8,6 +8,9 @@ After setting everything up, simply go to /translate.html/ link, register/login,
 
 Chart Photo & Translate Sentence Page:
 <br>
-<img width="50%" src="https://i.imgur.com/krTJQkY.png" alt="Chart Photo Visualization">
 <br>
-<img width="50%" src="https://i.imgur.com/WvPt17Q.png" alt="Chart Photo Visualization">
+<img width="50%" src="https://i.imgur.com/J2eO93E.png" alt="showcase main page image 1">
+<br>
+<img width="50%" src="https://i.imgur.com/krTJQkY.png" alt="showcase main page image 1">
+<br>
+<img width="50%" src="https://i.imgur.com/WvPt17Q.png" alt="translation page image">
